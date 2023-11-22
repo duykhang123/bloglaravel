@@ -30,5 +30,11 @@
             'fixed' => 'Fixed',
             'percent' => 'Percent',
         ],
+        'banner' => [
+            'default' => "---Select Condition---",
+            'slider' => 'Slider',
+            'banner' => 'Banner',
+            'backgroud' => 'Backgroud',
+        ],
     ],
  ];

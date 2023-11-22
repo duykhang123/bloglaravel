@@ -21,7 +21,12 @@ class IndexController extends Controller
 {
     public function home()
     {
-        $banner = BannerModel::where('status', '1')->orderBy('id', 'DESC')->limit('5')->get();
+        $banner = BannerModel::where('status', '1')->where('condition','banner')->orderBy('id', 'DESC')->limit('5')->get();
+        $banner_backgroud = BannerModel::where('status', '1')->where('condition','backgroud')->orderBy('id', 'DESC')->limit('5')->get();
+
+        $banner_slider = BannerModel::where('status', '1')->where('condition','slider')->orderBy('id', 'DESC')->limit('5')->get();
+
+
         $product_category = ProductCategoryModel::where('status', '1')->orderBy('id', 'DESC')->limit('5')->get();
 
         $items = DB::table('product_order')->select('product_model_id', DB::raw('COUNT(product_model_id) as count'))->groupBy('product_model_id')->orderBy('count', 'DESC')->get();
@@ -43,7 +48,7 @@ class IndexController extends Controller
 
 
 
-        return view('frontend.component.index', compact('banner', 'product_category', 'best_sellings','best_rated','special_product'));
+        return view('frontend.component.index', compact('banner', 'product_category', 'best_sellings','best_rated','special_product','banner_backgroud','banner_slider'));
     }
 
     public function shop(Request $request)

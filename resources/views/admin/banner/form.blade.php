@@ -2,6 +2,8 @@
     use App\Template;
 
     $select_status = Form::select('form[status]', config('myconfig.template.status'), null, ['class' => 'form-control']);
+
+    $select_condition = Form::select('form[condition]', config('myconfig.template.banner'), null, ['class' => 'form-control']);
 @endphp
 
 
@@ -61,6 +63,14 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 {!! $select_status !!}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Condition <span
+                                    class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                {!! $select_condition !!}
                             </div>
                         </div>
                         <div class="form-group">

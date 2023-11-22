@@ -3,15 +3,19 @@
         <div class="row">
             <!-- Featured Offer Area -->
             <div class="col-12 col-lg-6">
-                <div class="featured_offer_area d-flex align-items-center"
-                    style="background-image: url(img/bg-img/fea_offer.jpg);">
-                    <div class="featured_offer_text">
-                        <p>Summer 2018</p>
-                        <h2>30% OFF</h2>
-                        <h4>All kid’s items</h4>
-                        <a href="#" class="btn btn-primary btn-sm mt-3">Shop Now</a>
-                    </div>
-                </div>
+                @if (!empty($banner_backgroud))
+                    @foreach ($banner_backgroud as $item)
+                        <div class="featured_offer_area d-flex align-items-center"
+                            style="background-image: url({{$item->getImage()}});">
+                            <div class="featured_offer_text">
+                                <p>{{$item->name}}</p>
+                                <h2>{{$item->description}}</h2>
+                                <a href="#" class="btn btn-primary btn-sm mt-3">Shop Now</a>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+
             </div>
 
             <!-- Featured Product Area -->

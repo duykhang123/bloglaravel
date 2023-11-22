@@ -13,6 +13,7 @@
                     <th class="column-title">Tên</th>
                     <th class="column-title">Hình ảnh</th>
                     <th class="column-title">Trạng thái</th>
+                    <th class="column-title">Condition</th>
                     <th class="column-title">Tạo mới</th>
                     <th class="column-title">Chỉnh sửa</th>
                     <th class="column-title">Hành động</th>
@@ -32,6 +33,7 @@
                         $link = route($controllerName . 'changeStatus', ['status' => $value->status]);
                         $linkEdit = route($controllerName . 'edit', ['id' => $id]);
                         $status = Template::showStatus($value->status, $id, $link);
+                        $condition = $value->condition;
                         $picture = $value->getImage();
                         $updated_at = $value->updated_at;
                         $created_at = $value->created_at;
@@ -45,6 +47,16 @@
                             <td width="10%"><img style="width: 150px" src="{{ $picture }}" alt="admin"
                                     class="zvn-thumb"></td>
                             <td>{!! $status !!}</td>
+                            <td>
+                                @if ($condition == 'slider')
+                                    <span class="badge badge-success">{{ strtoupper($condition) }}</span>
+                                @elseif($condition == 'banner')
+                                    <span class="badge badge-warning">{{ strtoupper($condition) }}</span>
+                                @else
+                                    <span class="badge badge-primary">{{ strtoupper($condition) }}</span>
+                                @endif
+
+                            </td>
                             <td>
                                 <p><i class="fa fa-user"></i> hailan</p>
                                 <p><i class="fa fa-clock-o"></i>{{ $created_at }}</p>
