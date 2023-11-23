@@ -9,28 +9,19 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 
-class CategoryModel extends Model
+class AboutUsModel extends Model
 {
     use HasFactory;
-    protected $table = 'category';
+    protected $table = 'about_us';
 
-    private $folderUpload = 'category';
-    private $fileImage = [
-        'thumb' => ['width' => 150],
-        'standard' => ['width' => 300],
-    ];
-
-
+    private $folderUpload = 'about_us';
+   
     private $paramFilter = [
         'id',
         'name',
         'description'
     ];
 
-    public function posts()
-    {
-        return $this->hasMany(PostModel::class,'category_id');
-    }
 
 
     public function listItem($params = null)
@@ -68,4 +59,6 @@ class CategoryModel extends Model
             return $img;
         }
     }
+
+    
 }

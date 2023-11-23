@@ -52,6 +52,20 @@ class ShippingController extends Controller
         }
     }
 
+    public function deleteOnly($id)
+    {
+        $mainModel = new MainModel();
+        $item = $mainModel->where('id', $id)->first();
+        if (!empty($item)) {
+            $mainModel->where('id', $id)->delete();
+            Session::flash('success', 'Đã xóa thành công');
+            return redirect()->back();
+        } else {
+            Session::flash('error', 'Vui lòng chọn phần tử muốn xóa');
+            return redirect()->back();
+        }
+    }
+
 
     public function changeStatus($status, Request $request)
     {
@@ -104,15 +118,14 @@ class ShippingController extends Controller
         return redirect()->route($this->pathView . 'index');
     }
 
-    public function edit($id,Request $request){
+    public function edit($id, Request $request)
+    {
         $mainModel = new MainModel();
-        $item = $mainModel->where('id',$id)->first();
-        if($category = $request->post('form')){
-            $mainModel->where('id',$id)->update($category);
+        $item = $mainModel->where('id', $id)->first();
+        if ($category = $request->post('form')) {
+            $mainModel->where('id', $id)->update($category);
             return redirect()->back()->with('status', 'Updated category!');
         }
-        return view($this->pathView . 'edit',['id' => $id])->with('item', $item);
-
-
+        return view($this->pathView . 'edit', ['id' => $id])->with('item', $item);
     }
 }

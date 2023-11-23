@@ -60,8 +60,8 @@
                                         class="btn btn-icon btn-success" data-toggle="tooltip" data-placement="top"
                                         data-original-title="Edit">
                                         <i class="fa fa-pencil-square"></i>
-                                    </a><a href="/delete/1" type="button" class="btn btn-icon btn-danger btn-delete"
-                                        data-toggle="tooltip" data-placement="top" data-original-title="Delete">
+                                    <a href="{{ route($controllerName . 'deleteOnly', $id) }}" data-title-modal="Are you sure you want to delete <?= $shipping_address ?>?" class="my-confirm btn btn-icon btn-danger btn-delete"
+                                        data-original-title="Delete">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </div>

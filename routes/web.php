@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\HomeController;
@@ -48,6 +50,11 @@ Route::get('shop', [IndexController::class, 'shop'])->name('shop');
 Route::post('shop-filter', [IndexController::class, 'shopFilter'])->name('shop.filter');
 Route::get('autosearch', [IndexController::class, 'autoSearch'])->name('autosearch');
 Route::get('search', [IndexController::class, 'search'])->name('search');
+Route::get('about-us', [IndexController::class, 'aboutUs'])->name('about-us');
+
+
+Route::get('blog', [BlogController::class, 'blog'])->name('blog');
+Route::get('single_blog/{slug}', [BlogController::class, 'single_blog'])->name('single_blog');
 
 Route::get('cart', [CartController::class, 'cartIndex'])->name('cart.index');
 Route::post('cart/store', [CartController::class, 'cartStore'])->name('cart.store');
@@ -86,6 +93,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
         Route::get('index', [DashboardController::class, 'index'])->name('index');
         Route::get('form', [DashboardController::class, 'form'])->name('form');
         Route::get('delete', [DashboardController::class, 'delete']);
+        Route::match(['get', 'post'], 'deleteOnly/{id}', [DashboardController::class, 'deleteOnly'])->name('deleteOnly');
     });
 
     /*====================================  ORDER =======================================*/
@@ -93,6 +101,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::prefix($prefix)->name($prefix . '.')->group(function () {
         Route::get('index', [OrderController::class, 'index'])->name('index');
         Route::get('form', [OrderController::class, 'form'])->name('form');
+        Route::match(['get', 'post'], 'deleteOnly/{id}', [OrderController::class, 'deleteOnly'])->name('deleteOnly');
         Route::get('delete', [OrderController::class, 'delete']);
         Route::post('editCondition', [OrderController::class, 'editCondition'])->name('editCondition');
         Route::match(['get', 'post'], 'edit/{id}', [OrderController::class, 'edit'])->name('edit');
@@ -106,6 +115,13 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     });
 
 
+    /*====================================  ABOUT US =======================================*/
+    $prefix = 'aboutus';
+    Route::prefix($prefix)->name($prefix . '.')->group(function () {
+        Route::match(['get', 'post'],'form', [AboutUsController::class, 'form'])->name('form');
+    });
+
+
     /*====================================  USER =======================================*/
     $prefix = 'user';
     Route::prefix($prefix)->name($prefix . '.')->group(function () {
@@ -115,6 +131,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
         Route::post('changePublish/{status}', [UserController::class, 'changePublish'])->name('changePublish');
         Route::post('save', [UserController::class, 'save'])->name('save');
         Route::post('delete', [UserController::class, 'delete'])->name('delete');
+        Route::match(['get', 'post'], 'deleteOnly/{id}', [UserController::class, 'deleteOnly'])->name('deleteOnly');
         Route::match(['get', 'post'], 'edit/{id}', [UserController::class, 'edit'])->name('edit');
     });
 
@@ -126,6 +143,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
         Route::get('changeStatus/{status}', [CategoryController::class, 'changeStatus'])->name('changeStatus');
         Route::post('changePublish/{status}', [CategoryController::class, 'changePublish'])->name('changePublish');
         Route::post('save', [CategoryController::class, 'save'])->name('save');
+        Route::match(['get', 'post'], 'deleteOnly/{id}', [CategoryController::class, 'deleteOnly'])->name('deleteOnly');
         Route::post('delete', [CategoryController::class, 'delete'])->name('delete');
         Route::match(['get', 'post'], 'edit/{id}', [CategoryController::class, 'edit'])->name('edit');
     });
@@ -135,6 +153,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::prefix($prefix)->name($prefix . '.')->group(function () {
         Route::get('index', [CurrencyController::class, 'index'])->name('index');
         Route::get('form', [CurrencyController::class, 'form'])->name('form');
+        Route::match(['get', 'post'], 'deleteOnly/{id}', [CurrencyController::class, 'deleteOnly'])->name('deleteOnly');
         Route::get('changeStatus/{status}', [CurrencyController::class, 'changeStatus'])->name('changeStatus');
         Route::post('changePublish/{status}', [CurrencyController::class, 'changePublish'])->name('changePublish');
         Route::post('save', [CurrencyController::class, 'save'])->name('save');
@@ -146,6 +165,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     $prefix = 'shipping';
     Route::prefix($prefix)->name($prefix . '.')->group(function () {
         Route::get('index', [ShippingController::class, 'index'])->name('index');
+        Route::match(['get', 'post'], 'deleteOnly/{id}', [ShippingController::class, 'deleteOnly'])->name('deleteOnly');
         Route::get('form', [ShippingController::class, 'form'])->name('form');
         Route::get('changeStatus/{status}', [ShippingController::class, 'changeStatus'])->name('changeStatus');
         Route::post('changePublish/{status}', [ShippingController::class, 'changePublish'])->name('changePublish');
@@ -158,6 +178,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     $prefix = 'coupon';
     Route::prefix($prefix)->name($prefix . '.')->group(function () {
         Route::get('index', [CouponController::class, 'index'])->name('index');
+        Route::match(['get', 'post'], 'deleteOnly/{id}', [CouponController::class, 'deleteOnly'])->name('deleteOnly');
         Route::get('form', [CouponController::class, 'form'])->name('form');
         Route::get('changeStatus/{status}', [CouponController::class, 'changeStatus'])->name('changeStatus');
         Route::post('changePublish/{status}', [CouponController::class, 'changePublish'])->name('changePublish');
@@ -170,6 +191,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     $prefix = 'productcategory';
     Route::prefix($prefix)->name($prefix . '.')->group(function () {
         Route::get('index', [ProductCategoryController::class, 'index'])->name('index');
+        Route::match(['get', 'post'], 'deleteOnly/{id}', [ProductCategoryController::class, 'deleteOnly'])->name('deleteOnly');
         Route::get('form', [ProductCategoryController::class, 'form'])->name('form');
         Route::get('changeStatus/{status}', [ProductCategoryController::class, 'changeStatus'])->name('changeStatus');
         Route::post('changePublish/{status}', [ProductCategoryController::class, 'changePublish'])->name('changePublish');
@@ -182,6 +204,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     $prefix = 'brand';
     Route::prefix($prefix)->name($prefix . '.')->group(function () {
         Route::get('index', [BrandController::class, 'index'])->name('index');
+        Route::match(['get', 'post'], 'deleteOnly/{id}', [BrandController::class, 'deleteOnly'])->name('deleteOnly');
         Route::get('form', [BrandController::class, 'form'])->name('form');
         Route::get('changeStatus/{status}', [BrandController::class, 'changeStatus'])->name('changeStatus');
         Route::post('changePublish/{status}', [BrandController::class, 'changePublish'])->name('changePublish');
@@ -217,6 +240,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::prefix($prefix)->name($prefix . '.')->group(function () {
         Route::get('index', [PostController::class, 'index'])->name('index');
         Route::get('form', [PostController::class, 'form'])->name('form');
+        Route::match(['get', 'post'], 'deleteOnly/{id}', [PostController::class, 'deleteOnly'])->name('deleteOnly');
         Route::get('changeStatus/{status}', [PostController::class, 'changeStatus'])->name('changeStatus');
         Route::post('changePublish/{status}', [PostController::class, 'changePublish'])->name('changePublish');
         Route::post('save', [PostController::class, 'save'])->name('save');
@@ -229,6 +253,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::prefix($prefix)->name($prefix . '.')->group(function () {
         Route::get('index', [BannerController::class, 'index'])->name('index');
         Route::get('form', [BannerController::class, 'form'])->name('form');
+        Route::match(['get', 'post'], 'deleteOnly/{id}', [BannerController::class, 'deleteOnly'])->name('deleteOnly');
         Route::get('changeStatus/{status}', [BannerController::class, 'changeStatus'])->name('changeStatus');
         Route::post('changePublish/{status}', [BannerController::class, 'changePublish'])->name('changePublish');
         Route::post('save', [BannerController::class, 'save'])->name('save');

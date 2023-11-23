@@ -24,12 +24,12 @@
         </div>
         <div class="x_content">
             <div class="row">
-                <div class="col-md-6"><a href="?filter_status=all" type="button" class="btn btn-primary">
-                        All <span class="badge bg-white">4</span>
-                    </a><a href="?filter_status=active" type="button" class="btn btn-success">
-                        Active <span class="badge bg-white">2</span>
-                    </a><a href="?filter_status=inactive" type="button" class="btn btn-success">
-                        Inactive <span class="badge bg-white">2</span>
+                <div class="col-md-6"><a href="?select_filter=default" type="button" class="btn btn-primary">
+                        All <span class="badge bg-white">{{$items->count()}}</span>
+                    </a><a href="?select_filter=activ1e" type="button" class="btn btn-success">
+                        Active <span class="badge bg-white">{{$items->where('status',1)->count()}}</span>
+                    </a><a href="?select_filter=0" type="button" class="btn btn-success">
+                        Inactive <span class="badge bg-white">{{$items->where('status',0)->count()}}</span>
                     </a>
                 </div>
                 <form id="adminForm" action="{{ route($controllerName . 'index') }}">

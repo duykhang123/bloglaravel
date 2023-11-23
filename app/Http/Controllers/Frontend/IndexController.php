@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AboutUsModel;
 use App\Models\BannerModel;
 use App\Models\BrandModel;
 use App\Models\CategoryModel;
@@ -49,6 +50,11 @@ class IndexController extends Controller
 
 
         return view('frontend.component.index', compact('banner', 'product_category', 'best_sellings','best_rated','special_product','banner_backgroud','banner_slider'));
+    }
+
+    public function aboutUs(){
+        $list_about = AboutUsModel::first();
+        return view('frontend.pages.about-us',compact('list_about'));
     }
 
     public function shop(Request $request)

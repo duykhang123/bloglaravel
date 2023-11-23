@@ -36,6 +36,19 @@ class BrandController extends Controller
     {
         return view($this->pathView . 'form');
     }
+    public function deleteOnly($id)
+    {
+        $mainModel = new MainModel();
+        $item = $mainModel->where('id', $id)->first();
+        if (!empty($item)) {
+            $mainModel->where('id', $id)->delete();
+            Session::flash('success', 'Đã xóa thành công');
+            return redirect()->back();
+        } else {
+            Session::flash('error', 'Vui lòng chọn phần tử muốn xóa');
+            return redirect()->back();
+        }
+    }
     public function delete(Request $request)
     {
         $mainModel = new MainModel();

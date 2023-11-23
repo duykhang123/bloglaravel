@@ -14,6 +14,7 @@
             <li class="{{$linkView == 'shipping' ? 'current-page' : ''}}"><a href="{{route('admin.shipping.index')}}" ><i class="fa fa fa-building-o"></i> Shipping</a></li>
             <li class="{{$linkView == 'category' ? 'current-page' : ''}}"><a href="{{route('admin.category.index')}}" ><i class="fa fa fa-building-o"></i> Category</a></li>
             <li class="{{$linkView == 'post' ? 'current-page' : ''}}"><a href="{{route('admin.post.index')}}"><i class="fa fa-newspaper-o"></i> Article</a></li>
+            <li class="{{$linkView == 'aboutus' ? 'current-page' : ''}}"><a href="{{route('admin.aboutus.form')}}"><i class="fa fa-newspaper-o"></i> About Us</a></li>
             <li class="{{$linkView == 'smtp' ? 'current-page' : ''}}"><a href="{{route('admin.smtp.form')}}" ><i class="fa fa fa-building-o"></i> Smtp Setting</a></li>
         </ul>
     </div>
